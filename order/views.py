@@ -3,13 +3,13 @@ from django.views import View
 from .models import Order
 
 class Orders(View):
-    def get(self,request):
+    def get(self,request,order = None):
         orders = Order.objects.all()
-        # if order:
-        #     if order == "totalprice":
-        #         products = sorted(orders, key=lambda x: x.total_rate() or 0, reverse=True)
-        #     else:
-        #         products = orders.order_by(f"-{order}")
+        if order:
+            if order == "totalprice":
+                orders = sorted(orders, key=lambda x: x.total_price() or 0, reverse=True)
+            else:
+                orders = orders.order_by(f"-{order}")
         my_product_list = []
         for product in orders:
                 ticket_dictionary = {

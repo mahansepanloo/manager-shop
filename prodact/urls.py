@@ -12,6 +12,7 @@ urlpatterns = [
     path('prodact/', views.Products.as_view(),name="prodact"),
     path('prodact/<str:order>', views.Products.as_view()),
     path('search=<str:searchs>',views.Search.as_view()),
-    path('creat',views.AddProduct.as_view())
+    path('manager',views.ManageProduct.as_view()),
+    path('manager/<str:pk>', views.Edit.as_view()),
 
 ]

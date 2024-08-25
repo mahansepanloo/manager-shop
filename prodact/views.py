@@ -32,6 +32,7 @@ class Products(View):
 
 
             ticket_dictionary = {
+                'pk':product.id,
                 "name": product.name,
                 "price": product.price,
                 "category": product.category.name,
@@ -56,7 +57,8 @@ class Search(View):
         return JsonResponse(date, safe=False)
 
 @method_decorator(csrf_exempt, name='dispatch')
-class AddProduct(View):
+class ManageProduct(View):
+
     def post(self,request):
         cd = json.loads(request.body)
         if cd["category"] == 'm':
@@ -69,6 +71,30 @@ class AddProduct(View):
         prodact.save()
 
         return HttpResponse('done')
+@method_decorator(csrf_exempt, name='dispatch')
+class Edit(View):
+    def setup(self, request, *args, **kwargs):
+        self.product = Product.objects.get(id=kwargs['pk'])
+        return super().setup(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        if self.product:
+            self.product.delete()
+            return JsonResponse({'message': 'Product deleted successfully'}, status=204)
+        return JsonResponse({'error': 'Product not found'}, status=404)
+
+    def put(self, request, *args, **kwargs):
+        if not self.product:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+
+        cd = json.loads(request.body)
+        self.product.name = cd.get('name', self.product.name)
+        self.product.description = cd.get('description', self.product.description)
+        self.product.price = int(cd.get('price', self.product.price))
+        self.product.stock = int(cd.get('stock', self.product.stock))
+        self.product.category_id = 1 if cd.get("category") == 'm' else 2
+        self.product.save()
+        return JsonResponse({'message': 'Product updated successfully'}, status=200)
 
 
 
