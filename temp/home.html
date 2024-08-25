@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn-products {
+            background-color: #5cb85c;
+        }
+
+        .btn-sales {
+            background-color: #5bc0de;
+        }
+
+        .btn-panel {
+            background-color: #d9534f;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{{ request.user.username }}</h1>
+
+<div class="button-container">
+    <button type="button" class="btn-products"><a href="{% url 'home:prodact' %}">محصولات</a></button>
+    <button type="button" class="btn-sales"><a href="{% url 'order:order' %}">آمار فروش</a></button>
+    <button type="button" class="btn-panel"><a href="#">پنل مشتری</a></button>
+</div>
+
+</body>
+</html>
