@@ -6,7 +6,7 @@ urlpatterns = [
 
     path('',views.Orders.as_view(),name='order'),
     path("accounts/<str:name>", views.Name_order.as_view()),
-    path('order/<str:order>', views.Orders.as_view(), name='order'),
+    path('order/<str:order>', views.Orders.as_view(), name='orders'),
 
 
 
